@@ -40,4 +40,7 @@ target_include_directories(keypop PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 target_compile_definitions(keypop PRIVATE UNICODE _UNICODE _WIN32_WINNT=0x0601)
 target_compile_options(keypop PRIVATE /W4 /GS- /GR-)
 target_link_options(keypop PRIVATE /NODEFAULTLIB /ENTRY:Entry /SUBSYSTEM:WINDOWS,6.01)
+# PDB for Release too, shipped with the release so crashes can be symbolised.
+target_compile_options(keypop PRIVATE $<$<CONFIG:Release>:/Zi>)
+target_link_options(keypop PRIVATE $<$<CONFIG:Release>:/DEBUG /OPT:REF /OPT:ICF>)
 target_link_libraries(keypop PRIVATE kernel32 user32 gdi32 shell32)

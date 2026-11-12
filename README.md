@@ -1,5 +1,7 @@
 # keypop
 
+[![Build](https://github.com/learn-more/keypop/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/learn-more/keypop/actions/workflows/build.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://spdx.org/licenses/MIT) ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/learn-more/keypop?include_prereleases&sort=semver) ![Works on Windows 7](https://img.shields.io/badge/Works%20on-Windows%207-blue)
+
 Shows pressed keys and mouse buttons as an overlay in the bottom right corner of the screen. Meant for screencasts and demos.
 
 Runs from the tray. Right-click it to pick a display mode (stacked toasts, rolling line or words), pause, or exit. The chosen mode is saved to `keypop.ini` next to the exe.
@@ -8,10 +10,10 @@ Runs on Windows 7 and later. Built without the CRT, so it's a single small exe w
 
 ## Building
 
-Needs MSVC and CMake.
+Needs MSVC and CMake. Use `-A Win32` for an x86 build.
 
 ```
-cmake -B build
+cmake -B build -A x64
 cmake --build build --config Release
 ```
 

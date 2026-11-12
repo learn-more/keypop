@@ -1,0 +1,72 @@
+name: Release
+
+# Pushing a v* tag builds both platforms and leaves a draft release, published by hand.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    # One job instead of a matrix: each job would need its own SimplySign login.
+    runs-on: windows-latest
+    steps:
+      # Full history for git describe and release-notes.ps1.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        run: |
+          cmake -S . -B build/x86 -A Win32
+          cmake --build build/x86 --config Release
+          cmake -S . -B build/x64 -A x64
+          cmake --build build/x64 --config Release
+
+      - name: Stage release assets
+        run: |
+          New-Item -ItemType Directory -Path dist | Out-Null
+          foreach ($a in 'x86', 'x64') {
+            Copy-Item build\$a\Release\keypop.exe dist\keypop-$a.exe
+            Copy-Item build\$a\Release\keypop.pdb dist\keypop-$a.pdb
+          }
+          Get-ChildItem dist
+
+      # Opt-in, see .github/SIGNING.md. Without the settings the release is built unsigned and says so.
+      - name: Sign release binaries
+        uses: learn-more/certum-signing@v1
+        with:
+          path: |
+            dist/keypop-x86.exe
+            dist/keypop-x64.exe
+          notes-path: release-notes.md
+          otp-uri: ${{ secrets.CERTUM_OTP_URI }}
+          username: ${{ secrets.CERTUM_USERNAME }}
+          certificate-sha1: ${{ vars.CERTUM_CERTIFICATE_SHA1 }}
+          timestamp-server: ${{ vars.CERTUM_TIMESTAMP_SERVER }}
+          intermediate-url: ${{ vars.CERTUM_INTERMEDIATE_URL }}
+
+      - name: Build release notes
+        run: .\.github\scripts\release-notes.ps1 -Tag '${{ github.ref_name }}' -NotesPath release-notes.md
+
+      # After signing, which rewrites the executables.
+      - name: Hash release assets
+        run: |
+          "# keypop ${{ github.ref_name }} - $env:SIGNING_SUMMARY" | Set-Content dist\SHA256SUMS.txt -Encoding ASCII
+          Get-ChildItem dist\* -File -Exclude SHA256SUMS.txt |
+            Get-FileHash -Algorithm SHA256 |
+            ForEach-Object { "{0}  {1}" -f $_.Hash.ToLower(), (Split-Path $_.Path -Leaf) } |
+            Add-Content dist\SHA256SUMS.txt -Encoding ASCII
+          Get-Content dist\SHA256SUMS.txt
+
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = '${{ github.ref_name }}'
+          $ghArgs = @($tag, '--draft', '--verify-tag', '--title', $tag, '--notes-file', 'release-notes.md')
+          if ($tag -match '^v\d+\.\d+\.\d+-') { $ghArgs += '--prerelease' }
+          $assets = @(Get-ChildItem dist -File | ForEach-Object { $_.FullName })
+          gh release create @ghArgs @assets
