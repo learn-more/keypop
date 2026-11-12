@@ -6,6 +6,22 @@ Shows pressed keys and mouse buttons as an overlay in the bottom right corner of
 
 Runs from the tray. Right-click it to pick a display mode (stacked toasts, rolling line or words), pause, or exit. The chosen mode is saved to `keypop.ini` next to the exe.
 
+## Modes
+
+Stacked toasts: one toast per key, repeats are counted.
+
+![Stacked toasts](docs/keypop-stacked.png)
+
+Rolling line: everything on a single line.
+
+![Rolling line](docs/keypop-rolling.png)
+
+Words: typed characters share a toast, special keys get their own.
+
+![Words](docs/keypop-words.png)
+
+## Requirements
+
 Runs on Windows 7 and later. Built without the CRT, so it's a single small exe with no runtime dependencies.
 
 ## Building
