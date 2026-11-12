@@ -1,2 +1,31 @@
+#include <winver.h>
+#include "version.h"
+
 // Lowest icon id is what Explorer shows for the exe. main.cpp loads it for the tray too.
 1 ICON "res/app.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION KEYPOP_VERSION_NUM
+PRODUCTVERSION KEYPOP_VERSION_NUM
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "Mark Jansen"
+            VALUE "FileDescription", "keypop - keystroke overlay"
+            VALUE "FileVersion", KEYPOP_VERSION_STR
+            VALUE "InternalName", "keypop"
+            VALUE "LegalCopyright", "Copyright 2026 Mark Jansen, MIT license"
+            VALUE "OriginalFilename", "keypop.exe"
+            VALUE "ProductName", "keypop"
+            VALUE "ProductVersion", KEYPOP_VERSION_STR
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
