@@ -1,2 +1,2 @@
 // Lowest icon id is what Explorer shows for the exe. main.cpp loads it for the tray too.
-1 ICON "app.ico"
+1 ICON "res/app.ico"

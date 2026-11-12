@@ -1,4 +1,6 @@
-# Generates app.ico. Run: uv run --with pillow make_icon.py
+# Generates src/res/app.ico. Run: uv run --with pillow scripts/make_icon.py
+from pathlib import Path
+
 from PIL import Image, ImageDraw, ImageFont
 
 SIZES = [16, 20, 24, 32, 48, 256]
@@ -24,5 +26,6 @@ def render(size: int) -> Image.Image:
 
 
 frames = [render(s) for s in SIZES]
-frames[-1].save("app.ico", sizes=[(s, s) for s in SIZES], append_images=frames[:-1])
-print("wrote app.ico:", ", ".join(str(s) for s in SIZES))
+OUT = Path(__file__).resolve().parent.parent / "src" / "res" / "app.ico"
+frames[-1].save(OUT, sizes=[(s, s) for s in SIZES], append_images=frames[:-1])
+print(f"wrote {OUT}:", ", ".join(str(s) for s in SIZES))

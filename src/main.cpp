@@ -1,4 +1,8 @@
-// keypop: shows pressed keys and mouse buttons as toasts in the bottom right corner.
+// PROJECT:     keypop
+// LICENSE:     MIT (https://spdx.org/licenses/MIT.html)
+// PURPOSE:     Shows pressed keys and mouse buttons as toasts in the bottom right corner
+// COPYRIGHT:   Copyright 2026 Mark Jansen <mark.jansen@reactos.org>
+
 // Built without the CRT (see CMakeLists.txt), so: no static constructors, no printf family,
 // no exceptions, no floating point.
 // wsprintfW does no bounds checking; buffer sizes are picked to fit the worst case.

@@ -1,0 +1,5 @@
+extensions: .cpp .h .rc
+// PROJECT:     keypop
+// LICENSE:     MIT (https://spdx.org/licenses/MIT.html)
+// PURPOSE:     .
+// COPYRIGHT:   Copyright 2026 Mark Jansen <mark.jansen@reactos.org>
