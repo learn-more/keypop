@@ -1,6 +1,6 @@
 # keypop
 
-[![Build](https://github.com/learn-more/keypop/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/learn-more/keypop/actions/workflows/build.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://spdx.org/licenses/MIT) ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/learn-more/keypop?include_prereleases&sort=semver) ![Works on Windows 7](https://img.shields.io/badge/Works%20on-Windows%207-blue)
+[![Build](https://github.com/learn-more/keypop/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/learn-more/keypop/actions/workflows/build.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://spdx.org/licenses/MIT) ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/learn-more/keypop?include_prereleases&sort=semver) ![Works on Windows 7](https://img.shields.io/badge/Works%20on-Windows%207-blue) ![Works on ReactOS](https://img.shields.io/badge/Works%20on-ReactOS-blue)
 
 Shows pressed keys and mouse buttons as an overlay in the bottom right corner of the screen. Meant for screencasts and demos.
 

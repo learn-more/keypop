@@ -390,7 +390,8 @@ int Main()
     if (GetLastError() == ERROR_ALREADY_EXISTS) return 0;
 
     HINSTANCE inst = g_inst = GetModuleHandleW(nullptr);
-    SetProcessDPIAware();
+    // ReactOS doesn't export SetProcessDPIAware
+    if (auto p = (BOOL(WINAPI*)())GetProcAddress(GetModuleHandleW(L"user32.dll"), "SetProcessDPIAware")) p();
     HDC dc = GetDC(nullptr);
     g_dpi = GetDeviceCaps(dc, LOGPIXELSY);
     ReleaseDC(nullptr, dc);
