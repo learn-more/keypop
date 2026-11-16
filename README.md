@@ -4,6 +4,8 @@
 
 Shows pressed keys and mouse buttons as an overlay in the bottom right corner of the screen. Meant for screencasts and demos.
 
+See https://learn-more.github.io/keypop/ for an overview of the features.
+
 Runs from the tray. Right-click it to pick a display mode (stacked toasts, rolling line or words), pause, or exit. The chosen mode is saved to `keypop.ini` next to the exe.
 
 ## Modes
